@@ -5,9 +5,9 @@
 Valcro is the simple validation library for Ruby. It provides 
 
 * A declarative way to describe what makes an object valid
-* A way to declare Validation classes encapsulating validations to be shared
+* A way to declare validator classes encapsulating validations to be shared
   across objects
-* A method for running validations against an instance of your object
+* A method for running validations against an instance of your class
 * A method for checking whether an object is valid
 * Visibility into what validations failed
 
@@ -42,8 +42,8 @@ dog.error_messages
  => "name must be great"
 ```
 
-Unlike other ruby libraries, you must call validate explicitely to check for
-validity of objects.
+Unlike other ruby validation libraries, you must call validate explicitely to
+check for validity of objects.
 
 ### Sharing validators
 
