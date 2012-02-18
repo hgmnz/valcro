@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Harold Giménez"]
   s.email       = ["harold.gimenez@gmail.com"]
   s.homepage    = ""
-  s.summary     = %q{Validation so simple you probably don't need this}
-  s.description = %q{Validation so simple you probably don't need this}
+  s.summary     = %q{The simplest possible validation library for ruby}
+  s.description = %q{The simplest possible validation library for ruby}
 
   s.rubyforge_project = "valcro"
 
