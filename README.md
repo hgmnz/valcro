@@ -16,6 +16,8 @@ helpers such as `validates_presence_of` or similar.
 ## Example
 
 ```ruby
+require 'valcro'
+
 class Dog
   include Valcro
 
@@ -23,22 +25,54 @@ class Dog
 
   def validate
     super
-    errors.add(:name, 'must be present') unless name
+    errors.add(:name, 'must be great') unless name =~ /super|great|cool/
   end
 end
 
 dog = Dog.new
+dog.name = 'spike'
 dog.validate
 dog.valid?
  => false 
 dog.errors[:name]
- => ["must be present"]
+ => ["must be great"]
 dog.error_messages
- => "name must be present"
+ => "name must be great"
 ```
 
 Unlike other ruby libraries, you must call validate explicitely to check for
 validity of objects.
+
+### Sharing validators
+
+You may also have Cats in your system, which share the same validation. Valcro lets you encapsulate validations in an object with the following contract:
+
+* It is constructed with the object being validated
+* It has a call method that receives a `Valcro::ErrorList`. Add validation errors to this object.
+
+```ruby
+class GreatNameValidator
+  def initialize(thing_with_name)
+    @thing_with_name = thing_with_name
+  end
+
+  def call(errors)
+    errors.add(:name, 'must be great') unless @thing_with_name.name =~ /super|great|cool/
+  end
+end
+
+class Dog
+  include Valcro
+  attr_accessor :name
+  validates_with GreatNameValidator
+end
+
+class Cat
+  include Valcro
+  attr_accessor :name
+  validates_with GreatNameValidator
+end
+```
 
 ## License
 
