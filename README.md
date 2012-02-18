@@ -27,13 +27,13 @@ class Dog
   end
 end
 
- dog = Dog.new
- dog.validate
- dog.valid?
+dog = Dog.new
+dog.validate
+dog.valid?
  => false 
 dog.errors[:name]
  => ["must be present"]
- dog.error_messages
+dog.error_messages
  => "name must be present"
 ```
 
