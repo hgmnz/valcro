@@ -1,5 +1,7 @@
 # Valcro
 
+[![Build Status](https://secure.travis-ci.org/hgimenez/valcro.png?branch=master)](http://travis-ci.org/hgimenez/valcro)
+
 Valcro is the simple validation library for Ruby. It provides 
 
 * A declarative way to describe what makes an object valid
