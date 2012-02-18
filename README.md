@@ -48,7 +48,7 @@ validity of objects.
 You may also have Cats in your system, which share the same validation. Valcro lets you encapsulate validations in an object with the following contract:
 
 * It is constructed with the object being validated
-* It has a call method that receives a `Valcro::ErrorList`. Add validation errors to this object.
+* It responds to `call`, which receives a `Valcro::ErrorList`. Add validation errors to this object.
 
 ```ruby
 class GreatNameValidator
