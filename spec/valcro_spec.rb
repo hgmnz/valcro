@@ -38,8 +38,9 @@ describe Valcro, 'validators' do
 
   class TestClass
     include Valcro
+    attr_accessor :status
     def status
-      "fail"
+      @status ||= "fail"
     end
     validates_with StatusFail
   end
@@ -49,6 +50,17 @@ describe Valcro, 'validators' do
 
     test_instance.validate
     test_instance.should_not be_valid
+  end
+
+  it 'clears validations on subsequent runs' do
+    test_instance = TestClass.new
+
+    test_instance.validate
+    test_instance.should_not be_valid
+
+    test_instance.status = 'win'
+    test_instance.validate
+    test_instance.should be_valid
   end
 end
 

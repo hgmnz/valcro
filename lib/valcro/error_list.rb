@@ -17,6 +17,10 @@ module Valcro
       @errors.select { |error| error.property == prop }.map(&:message) || []
     end
 
+    def clear!
+      @errors = []
+    end
+
     def full_messages
       @errors.map(&:to_s)
     end

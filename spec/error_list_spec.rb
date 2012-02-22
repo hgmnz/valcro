@@ -57,3 +57,14 @@ describe Valcro::ErrorList, '#any?' do
     list.any?.should be_true
   end
 end
+
+describe Valcro::ErrorList, '#clear!' do
+  it 'removes all errors' do
+    list = Valcro::ErrorList.new
+    list.add :prop, 'some error'
+    list.any?.should be_true
+
+    list.clear!
+    list.any?.should be_false
+  end
+end

@@ -20,6 +20,7 @@ module Valcro
   end
 
   def validate
+    errors.clear!
     self.class.validators.each do |validator_class|
       validation_runner.add_validator validator_class.new(self)
     end
