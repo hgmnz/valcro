@@ -1,6 +1,7 @@
 # Valcro
 
 [![Build Status](https://secure.travis-ci.org/hgimenez/valcro.png?branch=master)](http://travis-ci.org/hgimenez/valcro)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/hgimenez/valcro)
 
 Valcro is the simple validation library for Ruby. It provides 
 
