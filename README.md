@@ -26,8 +26,7 @@ class Dog
 
   attr_accessor :name
 
-  def validate
-    super
+  validate do
     errors.add(:name, 'must be great') unless name =~ /super|great|cool/
   end
 end

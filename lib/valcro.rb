@@ -24,6 +24,9 @@ module Valcro
     self.class.validators.each do |validator_class|
       validation_runner.add_validator validator_class.new(self)
     end
+    self.class.validation_blocks.each do |validation_block|
+      instance_eval(&validation_block)
+    end
     validation_runner.validate
   end
 
@@ -38,6 +41,13 @@ module Valcro
 
     def validators
       @validators ||= []
+    end
+    def validation_blocks
+      @validation_blocks ||= []
+    end
+
+    def validate(&block)
+      validation_blocks << block
     end
   end
 end
