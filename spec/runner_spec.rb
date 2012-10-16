@@ -4,7 +4,7 @@ describe Valcro::Runner do
   it 'can store validators' do
     runner = Valcro::Runner.new
     runner.add_validator :some_validator
-    runner.validators.should have(1).validator
+    expect(runner.validators).to have(1).validator
   end
 
   it 'runs validators' do
@@ -14,6 +14,6 @@ describe Valcro::Runner do
 
     runner.validate
 
-    error_list.any?.should be_true
+    expect(error_list.any?).to be_true
   end
 end

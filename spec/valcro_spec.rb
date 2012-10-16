@@ -5,8 +5,9 @@ describe Valcro do
     include Valcro
   end
 
-  subject { TestClass.new }
-  it { should be_valid }
+  it 'is valid with no validations defined' do
+    expect(TestClass.new.valid?).to be_true
+  end
 end
 
 describe Valcro, 'adding some errors' do
@@ -16,13 +17,12 @@ describe Valcro, 'adding some errors' do
 
   it 'gives access to the error list' do
     test_instance = TestClass.new
-    test_instance.should be_valid
 
     test_instance.errors.add(:foo, 'too foo for my taste')
 
-    test_instance.errors[:foo].should have(1).error
+    expect(test_instance.errors[:foo]).to have(1).error
 
-    test_instance.should_not be_valid
+    expect(test_instance).not_to be_valid
   end
 end
 
@@ -49,18 +49,18 @@ describe Valcro, 'validators' do
     test_instance = TestClass.new
 
     test_instance.validate
-    test_instance.should_not be_valid
+    expect(test_instance).not_to be_valid
   end
 
   it 'clears validations on subsequent runs' do
     test_instance = TestClass.new
 
     test_instance.validate
-    test_instance.should_not be_valid
+    expect(test_instance).not_to be_valid
 
     test_instance.status = 'win'
     test_instance.validate
-    test_instance.should be_valid
+    expect(test_instance).to be_valid
   end
 end
 
@@ -73,6 +73,6 @@ describe Valcro, '#error_messages' do
     test_instance = TestClass.new
     test_instance.stub!(errors: double(to_s: 'some errors'))
 
-    test_instance.error_messages.should == 'some errors'
+    expect(test_instance.error_messages).to eq('some errors')
   end
 end
