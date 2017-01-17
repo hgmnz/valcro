@@ -14,6 +14,6 @@ describe Valcro::Runner do
 
     runner.validate
 
-    expect(error_list.any?).to be_true
+    expect(error_list.any?).to be_truthy
   end
 end
