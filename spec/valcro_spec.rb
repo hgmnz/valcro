@@ -6,7 +6,7 @@ describe Valcro do
   end
 
   it 'is valid with no validations defined' do
-    expect(TestClass.new.valid?).to be_true
+    expect(TestClass.new.valid?).to be_truthy
   end
 end
 
@@ -75,7 +75,7 @@ describe Valcro, '#error_messages' do
 
   it 'delegates to errors' do
     test_instance = test_class.new
-    test_instance.stub!(errors: double(to_s: 'some errors'))
+    allow(test_instance).to receive(:errors).and_return(double(to_s: 'some errors'))
 
     expect(test_instance.error_messages).to eq('some errors')
   end
@@ -96,10 +96,10 @@ describe Valcro, '.validate' do
     test_instance = test_class.new
     test_instance.works = false
     test_instance.validate
-    expect(test_instance.valid?).to be_false
+    expect(test_instance.valid?).to be_falsey
 
     test_instance.works = true
     test_instance.validate
-    expect(test_instance.valid?).to be_true
+    expect(test_instance.valid?).to be_truthy
   end
 end
