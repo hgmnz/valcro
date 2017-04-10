@@ -32,5 +32,9 @@ module Valcro
     def any?
       @errors.any?
     end
+
+    def none?
+      @errors.none?
+    end
   end
 end

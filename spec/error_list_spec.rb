@@ -58,6 +58,17 @@ describe Valcro::ErrorList, '#any?' do
   end
 end
 
+describe Valcro::ErrorList, '#none?' do
+  it 'is true when there no errors 'do
+    list = Valcro::ErrorList.new
+
+    expect(list.none?).to be_truthy
+    list.add :prop, 'some error'
+
+    expect(list.none?).to be_falsey
+  end
+end
+
 describe Valcro::ErrorList, '#clear!' do
   it 'removes all errors' do
     list = Valcro::ErrorList.new
