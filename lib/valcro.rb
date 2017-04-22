@@ -21,6 +21,10 @@ module Valcro
 
   def validate
     errors.clear!
+    validation_runner.clear!
+    self.class.validator_blocks.each do |validator_block|
+      validation_runner.add_validator instance_eval(&validator_block)
+    end
     self.class.validators.each do |validator_class|
       validation_runner.add_validator validator_class.new(self)
     end
@@ -35,10 +39,19 @@ module Valcro
   end
 
   module ClassMethods
-    def validates_with(validator_class)
-      validators << validator_class
+    def validates_with(validator_class = nil, &block)
+      if block_given?
+        raise ArgumentError, "cannot provide validator class alongside block" if validator_class
+        validator_blocks << block
+      else
+        raise ArgumentError, "cannot provide block alongside validator class" if block_given?
+        validators << validator_class
+      end
     end
 
+    def validator_blocks
+      @validator_blocks ||= []
+    end
     def validators
       @validators ||= []
     end

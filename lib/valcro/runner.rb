@@ -15,5 +15,9 @@ module Valcro
         validator.call error_list
       end
     end
+
+    def clear!
+      @validators.clear
+    end
   end
 end

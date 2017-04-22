@@ -68,6 +68,47 @@ describe Valcro, 'validators' do
   end
 end
 
+describe Valcro, 'reusable validators' do
+  class ScopedStatusFailValidator
+    def initialize(status)
+      @status = status
+    end
+    def call(errors)
+      errors.add(:status, 'big mistake') if @status == 'fail'
+    end
+  end
+
+  let(:test_class) do
+    Class.new do
+      include Valcro
+      attr_accessor :status
+      def status
+        @status ||= "fail"
+      end
+
+      validates_with { ScopedStatusFailValidator.new(status) }
+    end
+  end
+
+  it 'can be added validators' do
+    test_instance = test_class.new
+
+    test_instance.validate
+    expect(test_instance).not_to be_valid
+  end
+
+  it 'clears validations on subsequent runs' do
+    test_instance = test_class.new
+
+    test_instance.validate
+    expect(test_instance).not_to be_valid
+
+    test_instance.status = 'win'
+    test_instance.validate
+    expect(test_instance).to be_valid
+  end
+end
+
 describe Valcro, '#error_messages' do
   let(:test_class) do
     Class.new { include Valcro }
