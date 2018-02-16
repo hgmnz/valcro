@@ -6,6 +6,11 @@ module Valcro
       @error_list = error_list
     end
 
+    def clear!
+      @validators.clear
+      @error_list.clear!
+    end
+
     def add_validator(validator)
       @validators << validator
     end
