@@ -20,9 +20,14 @@ module Valcro
   end
 
   def validate
-    errors.clear!
+    validation_runner.clear!
     self.class.validators.each do |validator_class|
-      validation_runner.add_validator validator_class.new(self)
+      validator = if validator_class.respond_to?(:build)
+                    validator_class.build(self)
+                  else
+                    validator_class.new(self)
+                  end
+      validation_runner.add_validator validator
     end
     self.class.validation_blocks.each do |validation_block|
       instance_eval(&validation_block)
