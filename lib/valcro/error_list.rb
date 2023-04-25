@@ -9,8 +9,8 @@ module Valcro
       @errors << error
     end
 
-    def add(prop, message)
-      @errors << Valcro::Error.new(prop, message)
+    def add(prop, message, options={})
+      @errors << Valcro::Error.new(prop, message, options)
     end
 
     def [](prop)

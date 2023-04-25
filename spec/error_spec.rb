@@ -18,8 +18,13 @@ describe Valcro::Error do
     expect(error.to_s).to eq('message')
   end
 
-  def create_error(prop = :prop, message = 'message')
-    Valcro::Error.new(prop, message)
+  it 'does not include property if told to ignore' do
+    error = create_error(:foo, 'message', include_property_in_to_s: false)
+    expect(error.to_s).to eq('message')
+  end
+
+  def create_error(prop = :prop, message = 'message', opts = {})
+    Valcro::Error.new(prop, message, opts)
   end
 end
 
