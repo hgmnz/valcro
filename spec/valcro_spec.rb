@@ -1,26 +1,28 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
+
+class TestClass
+  include Valcro
+end
 
 describe Valcro do
-  class TestClass
-    include Valcro
-  end
-
-  it 'is valid with no validations defined' do
+  it "is valid with no validations defined" do
     expect(TestClass.new.valid?).to be_truthy
   end
 end
 
-describe Valcro, 'adding some errors' do
+describe Valcro, "adding some errors" do
   let(:test_class) do
     Class.new do
-    include Valcro
+      include Valcro
     end
   end
 
-  it 'gives access to the error list' do
+  it "gives access to the error list" do
     test_instance = test_class.new
 
-    test_instance.errors.add(:foo, 'too foo for my taste')
+    test_instance.errors.add(:foo, "too foo for my taste")
 
     expect(test_instance.errors[:foo]).to have(1).error
 
@@ -28,16 +30,17 @@ describe Valcro, 'adding some errors' do
   end
 end
 
-describe Valcro, 'validators' do
-  class StatusFailValidator
-    def initialize(context)
-      @context = context
-    end
-    def call(errors)
-      errors.add(:status, 'big mistake') if @context.status == 'fail'
-    end
+class StatusFailValidator
+  def initialize(context)
+    @context = context
   end
 
+  def call(errors)
+    errors.add(:status, "big mistake") if @context.status == "fail"
+  end
+end
+
+describe Valcro, "validators" do
   let(:test_class) do
     Class.new do
       include Valcro
@@ -49,39 +52,40 @@ describe Valcro, 'validators' do
     end
   end
 
-  it 'can be added validators' do
+  it "can be added validators" do
     test_instance = test_class.new
 
     test_instance.validate
     expect(test_instance).not_to be_valid
   end
 
-  it 'clears validations on subsequent runs' do
+  it "clears validations on subsequent runs" do
     test_instance = test_class.new
 
     test_instance.validate
     expect(test_instance).not_to be_valid
 
-    test_instance.status = 'win'
+    test_instance.status = "win"
     test_instance.validate
     expect(test_instance).to be_valid
   end
 end
 
-describe Valcro, 'reusable validators' do
-  class ScopedStatusFailValidator
-    def self.build(context)
-      new(context.status)
-    end
-
-    def initialize(status)
-      @status = status
-    end
-    def call(errors)
-      errors.add(:status, 'big mistake') if @status == 'fail'
-    end
+class ScopedStatusFailValidator
+  def self.build(context)
+    new(context.status)
   end
 
+  def initialize(status)
+    @status = status
+  end
+
+  def call(errors)
+    errors.add(:status, "big mistake") if @status == "fail"
+  end
+end
+
+describe Valcro, "reusable validators" do
   let(:test_class) do
     Class.new do
       include Valcro
@@ -94,50 +98,50 @@ describe Valcro, 'reusable validators' do
     end
   end
 
-  it 'can be added validators' do
+  it "can be added validators" do
     test_instance = test_class.new
 
     test_instance.validate
     expect(test_instance).not_to be_valid
   end
 
-  it 'clears validations on subsequent runs' do
+  it "clears validations on subsequent runs" do
     test_instance = test_class.new
 
     test_instance.validate
     expect(test_instance).not_to be_valid
 
-    test_instance.status = 'win'
+    test_instance.status = "win"
     test_instance.validate
     expect(test_instance).to be_valid
   end
 end
 
-describe Valcro, '#error_messages' do
+describe Valcro, "#error_messages" do
   let(:test_class) do
     Class.new { include Valcro }
   end
 
-  it 'delegates to errors' do
+  it "delegates to errors" do
     test_instance = test_class.new
-    allow(test_instance).to receive(:errors).and_return(double(to_s: 'some errors'))
+    allow(test_instance).to receive(:errors).and_return(double(to_s: "some errors"))
 
-    expect(test_instance.error_messages).to eq('some errors')
+    expect(test_instance.error_messages).to eq("some errors")
   end
 end
 
-describe Valcro, '.validate' do
+describe Valcro, ".validate" do
   let(:test_class) do
     Class.new do
       include Valcro
       attr_accessor :works
       validate do
-        errors.add(:works, 'does not work') unless works
+        errors.add(:works, "does not work") unless works
       end
     end
   end
 
-  it 'sets validations on the included class' do
+  it "sets validations on the included class" do
     test_instance = test_class.new
     test_instance.works = false
     test_instance.validate

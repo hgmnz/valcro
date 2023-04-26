@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Valcro
   class ErrorList
     attr_accessor :errors
@@ -26,7 +28,7 @@ module Valcro
     end
 
     def to_s
-      full_messages.join(' ')
+      full_messages.join(" ")
     end
 
     def any?

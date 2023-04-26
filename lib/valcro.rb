@@ -1,6 +1,8 @@
-require 'valcro/error'
-require 'valcro/error_list'
-require 'valcro/runner'
+# frozen_string_literal: true
+
+require "valcro/error"
+require "valcro/error_list"
+require "valcro/runner"
 
 module Valcro
   def self.included(base)
@@ -23,10 +25,10 @@ module Valcro
     validation_runner.clear!
     self.class.validators.each do |validator_class|
       validator = if validator_class.respond_to?(:build)
-                    validator_class.build(self)
-                  else
-                    validator_class.new(self)
-                  end
+        validator_class.build(self)
+      else
+        validator_class.new(self)
+      end
       validation_runner.add_validator validator
     end
     self.class.validation_blocks.each do |validation_block|
@@ -47,6 +49,7 @@ module Valcro
     def validators
       @validators ||= []
     end
+
     def validation_blocks
       @validation_blocks ||= []
     end

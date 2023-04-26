@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Valcro
   class Runner
     attr_accessor :validators, :error_list

@@ -1,5 +1,8 @@
-require 'valcro'
-require 'rspec/collection_matchers'
+# frozen_string_literal: true
+
+require "valcro"
+require "rspec/collection_matchers"
+
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
@@ -8,7 +11,7 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = 'random'
+  config.order = "random"
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
