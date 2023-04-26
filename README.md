@@ -1,16 +1,13 @@
 # Valcro
 
-[![Build Status](https://secure.travis-ci.org/hgmnz/valcro.png?branch=master)](http://travis-ci.org/hgmnz/valcro)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/hgmnz/valcro)
+Valcro is the simple validation library for Ruby. It provides
 
-Valcro is the simple validation library for Ruby. It provides 
-
-* A declarative way to describe what makes an object valid
-* A way to declare validator classes encapsulating validations to be shared
+- A declarative way to describe what makes an object valid
+- A way to declare validator classes encapsulating validations to be shared
   across objects
-* A method for running validations against an instance of your class
-* A method for checking whether an object is valid
-* Visibility into what validations failed
+- A method for running validations against an instance of your class
+- A method for checking whether an object is valid
+- Visibility into what validations failed
 
 It is similar in spirit to ActiveModel's or Sequel's validations, but far
 simpler and with a slightly different API. It does not provide validation
@@ -35,7 +32,7 @@ dog = Dog.new
 dog.name = 'spike'
 dog.validate
 dog.valid?
- => false 
+ => false
 dog.errors[:name]
  => ["must be great"]
 dog.error_messages
@@ -49,8 +46,8 @@ check for validity of objects.
 
 You may also have Cats in your system, which share the same validation. Valcro lets you encapsulate validations in an object with the following contract:
 
-* It is constructed with the object being validated
-* It responds to `call`, which receives a `Valcro::ErrorList`. Add validation errors to this object.
+- It is constructed with the object being validated
+- It responds to `call`, which receives a `Valcro::ErrorList`. Add validation errors to this object.
 
 ```ruby
 class GreatNameValidator
